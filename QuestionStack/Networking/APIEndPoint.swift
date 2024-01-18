@@ -39,9 +39,9 @@ extension APIEndPoint: APIEndPointDelegate {
     var path: String {
         switch self {
         case .getQuestions(let page):
-            return "/questions?site=stackoverflow&page=\(page)"
+            return "\(baseURL)/questions?site=stackoverflow&page=\(page)"
         case .getQestionAnswers(let questionId):
-            return "/questions/\(questionId)/answers?site=stackoverflow"
+            return "\(baseURL)/questions/\(questionId)/answers?site=stackoverflow"
         }
     }
     
@@ -55,13 +55,10 @@ extension APIEndPoint: APIEndPointDelegate {
     }
     
     func request() -> URLRequest {
-        guard var component = URLComponents(string: baseURL) else { fatalError("Base URL Error")}
-        component.path = path
-        guard let url = component.url else { fatalError("URL Error From Component") }
         
+        let url = URL(string: path)!
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        
         return request
     }
 }
