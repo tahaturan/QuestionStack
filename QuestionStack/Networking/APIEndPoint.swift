@@ -7,6 +7,14 @@
 
 import Foundation
 
+enum NetworkError: String, Error {
+    case unableToComplateError
+    case invalidResponse
+    case invalidData
+    case unknownError
+    case decodingError
+}
+
 enum HTTPMethod: String {
     case get = "GET"
 }
