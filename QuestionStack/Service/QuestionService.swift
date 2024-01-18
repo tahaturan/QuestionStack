@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+protocol QuestionServiceDelegate {
+    func getQuestions(page: Int, completion: @escaping (Result<QuestionsModel, NetworkError>) -> Void)
+    func getQuestionAnswers(questionID: Int, comletion: @escaping (Result<QuestionsAnswerModel, NetworkError>) -> Void)
+}
+
+final class QuestionService: QuestionServiceDelegate {
+
+    static let shared = QuestionService()
+    private init() {}
+    
+    func getQuestions(page: Int, completion: @escaping (Result<QuestionsModel, NetworkError>) -> Void) {
+        NetworkManager.shared.request(.getQuestions(page: page), completion: completion)
+    }
+    
+    func getQuestionAnswers(questionID: Int, comletion: @escaping (Result<QuestionsAnswerModel, NetworkError>) -> Void) {
+        NetworkManager.shared.request(.getQestionAnswers(questionId: questionID), completion: comletion)
+    }
+    
+}
