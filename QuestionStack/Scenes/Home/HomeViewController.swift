@@ -10,12 +10,13 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     //MARK: - Properties
-
+    private lazy var homeViewModel: HomeViewModel = HomeViewModel()
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupLayout()
+        homeViewModel.loadData()
     }
 }
 //MARK: - Helper

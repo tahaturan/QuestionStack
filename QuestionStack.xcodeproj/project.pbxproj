@@ -18,6 +18,10 @@
 		5FE8EAD22B58504A00B78B48 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE8EAD12B58504A00B78B48 /* SnapKit */; };
 		5FE8EAD42B585E6A00B78B48 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAD32B585E6A00B78B48 /* NetworkManager.swift */; };
 		5FE8EAD62B585E8800B78B48 /* APIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAD52B585E8800B78B48 /* APIEndPoint.swift */; };
+		5FE8EAD82B59062A00B78B48 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAD72B59062A00B78B48 /* QuestionModel.swift */; };
+		5FE8EADB2B59134400B78B48 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EADA2B59134400B78B48 /* QuestionService.swift */; };
+		5FE8EADD2B591ECA00B78B48 /* QuestionAnswerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EADC2B591ECA00B78B48 /* QuestionAnswerModel.swift */; };
+		5FE8EADF2B59234900B78B48 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +56,10 @@
 		5FE8EACE2B584FE700B78B48 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5FE8EAD32B585E6A00B78B48 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5FE8EAD52B585E8800B78B48 /* APIEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoint.swift; sourceTree = "<group>"; };
+		5FE8EAD72B59062A00B78B48 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
+		5FE8EADA2B59134400B78B48 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
+		5FE8EADC2B591ECA00B78B48 /* QuestionAnswerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerModel.swift; sourceTree = "<group>"; };
+		5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,7 @@
 		5FE8EA932B584E5800B78B48 /* QuestionStack */ = {
 			isa = PBXGroup;
 			children = (
+				5FE8EAD92B59131700B78B48 /* Service */,
 				5FE8EACB2B584F0000B78B48 /* Storage */,
 				5FE8EAC82B584EDC00B78B48 /* Networking */,
 				5FE8EAC72B584ED500B78B48 /* Model */,
@@ -162,6 +171,8 @@
 		5FE8EAC72B584ED500B78B48 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5FE8EAD72B59062A00B78B48 /* QuestionModel.swift */,
+				5FE8EADC2B591ECA00B78B48 /* QuestionAnswerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -208,8 +219,17 @@
 			isa = PBXGroup;
 			children = (
 				5FE8EACE2B584FE700B78B48 /* HomeViewController.swift */,
+				5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		5FE8EAD92B59131700B78B48 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				5FE8EADA2B59134400B78B48 /* QuestionService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,8 +369,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FE8EAD42B585E6A00B78B48 /* NetworkManager.swift in Sources */,
+				5FE8EADF2B59234900B78B48 /* HomeViewModel.swift in Sources */,
 				5FE8EAD62B585E8800B78B48 /* APIEndPoint.swift in Sources */,
 				5FE8EA952B584E5800B78B48 /* AppDelegate.swift in Sources */,
+				5FE8EADB2B59134400B78B48 /* QuestionService.swift in Sources */,
+				5FE8EAD82B59062A00B78B48 /* QuestionModel.swift in Sources */,
+				5FE8EADD2B591ECA00B78B48 /* QuestionAnswerModel.swift in Sources */,
 				5FE8EA972B584E5800B78B48 /* SceneDelegate.swift in Sources */,
 				5FE8EACF2B584FE700B78B48 /* HomeViewController.swift in Sources */,
 			);
