@@ -23,6 +23,7 @@ protocol APIEndPointDelegate {
     var baseURL: String { get }
     var path: String { get }
     var method: HTTPMethod { get }
+    func questionApiURL() -> String
     func request() -> URLRequest
 }
 
@@ -39,9 +40,9 @@ extension APIEndPoint: APIEndPointDelegate {
     var path: String {
         switch self {
         case .getQuestions(let page):
-            return "\(baseURL)/questions?site=stackoverflow&page=\(page)"
+            return "/questions?site=stackoverflow&page=\(page)&pagesize=15&order=desc&sort=activity"
         case .getQestionAnswers(let questionId):
-            return "\(baseURL)/questions/\(questionId)/answers?site=stackoverflow"
+            return "/questions/\(questionId)/answers?site=stackoverflow"
         }
     }
     
@@ -53,12 +54,20 @@ extension APIEndPoint: APIEndPointDelegate {
             return .get
         }
     }
+    func questionApiURL() -> String {
+        return "\(baseURL)\(path)"
+    }
     
     func request() -> URLRequest {
         
-        let url = URL(string: path)!
+        guard let apiURL = URLComponents(string: questionApiURL()) else {
+            fatalError("URL Compinents is not")
+        }
+        guard let url = apiURL.url else { fatalError("URL is Not Created") }
+        
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
+        
         return request
     }
 }
