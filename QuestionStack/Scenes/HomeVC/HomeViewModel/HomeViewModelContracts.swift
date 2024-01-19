@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+protocol HomeViewModelContracts {
+    var delegate: HomeViewModelDelegate? { get set }
+    func load()
+}
+
+enum HomeViewModelOutput {
+    case questions([QuestionItem])
+    case error(NetworkError)
+}
+
+protocol HomeViewModelDelegate {
+    func handleOutput(_ output: HomeViewModelOutput)
+}

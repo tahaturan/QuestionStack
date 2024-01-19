@@ -7,22 +7,26 @@
 
 import Foundation
 
-protocol HomeViewModelInterFace {
-    func loadData()
-}
 
-final class HomeViewModel: HomeViewModelInterFace {
-    private(set) var questionList: Observable<[QuestionItem]> = Observable()
-    private(set) var listCount: Int = 0
-     func loadData() {
-         QuestionService.shared.getQuestions(page: 1) { [weak self] result in
-                 switch result {
-                 case .success(let questionsList):
-                     self?.questionList.value = questionsList.items
-                     self?.listCount = questionsList.items.count
-                 case .failure(let failure):
-                     print(failure.rawValue)
-                 }
-         }
+
+final class HomeViewModel: HomeViewModelContracts {
+    var delegate: HomeViewModelDelegate?
+    var service: NetworkManagerProtocol
+    
+    init(service: NetworkManagerProtocol) {
+        self.service = service
     }
+    
+    func load() {
+        service.fetchData(.getQuestions(page: 1)) { (result: Result<QuestionsModel, NetworkError>) in
+            switch result {
+            case .success(let questionModel):
+                self.delegate?.handleOutput(.questions(questionModel.items))
+            case .failure(_):
+                self.delegate?.handleOutput(.error(.invalidData))
+            }
+        }
+    }
+    
+    
 }
