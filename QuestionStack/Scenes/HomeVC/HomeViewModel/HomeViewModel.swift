@@ -18,15 +18,20 @@ final class HomeViewModel: HomeViewModelContracts {
     }
     
     func load() {
-        service.fetchData(.getQuestions(page: 1)) { (result: Result<QuestionsModel, NetworkError>) in
-            switch result {
-            case .success(let questionModel):
-                self.delegate?.handleOutput(.questions(questionModel.items))
-            case .failure(_):
-                self.delegate?.handleOutput(.error(.invalidData))
+        setLoading(true)
+            self.service.fetchData(.getQuestions(page: 1)) { (result: Result<QuestionsModel, NetworkError>) in
+                self.setLoading(false)
+                switch result {
+                case .success(let questionModel):
+                    self.delegate?.handleOutput(.questions(questionModel.items))
+                case .failure(_):
+                    self.delegate?.handleOutput(.error(.invalidData))
+                }
             }
-        }
+        
     }
-    
+    func setLoading(_ isLoading: Bool) {
+        self.delegate?.handleOutput(.setLoading(isLoading))
+    }
     
 }

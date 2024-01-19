@@ -70,7 +70,9 @@ class HomeTableViewCell: UITableViewCell {
         titleLabel.text = question.title
         tagLabel.text = tagText
         userNameLabel.text = question.owner.displayName
-         profileImageView.sd_setImage(with: URL(string: question.owner.profileImage!))
+         if let userProfileImage = question.owner.profileImage {
+             profileImageView.sd_setImage(with: URL(string: userProfileImage))
+         }
     }
 }
 

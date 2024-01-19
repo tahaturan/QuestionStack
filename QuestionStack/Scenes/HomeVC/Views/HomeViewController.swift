@@ -12,7 +12,14 @@ class HomeViewController: UIViewController {
     //MARK: - Properties
     private lazy var homeViewModel: HomeViewModel = HomeViewModel(service: NetworkManager())
     private var questionList: [QuestionItem] = []
-    
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        
+        indicator.hidesWhenStopped = true
+        indicator.color = .black
+        
+        return indicator
+    }()
     //MARK: - UICompanents
     let searchBarView: UISearchBar = {
         let searchBar = UISearchBar()
@@ -35,6 +42,7 @@ extension HomeViewController {
         title = "QuestionStack"
         makeSearcBarView()
         makeTableView()
+        makeActivityIndicator()
     }
 }
 //MARK: - makeComponents
@@ -62,6 +70,12 @@ extension HomeViewController{
             make.height.equalTo(50)
         }
     }
+    private func makeActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
 }
 //MARK: - UItableViewDelagateDataSource
 extension HomeViewController: TableViewDelegateDataSource {
@@ -85,14 +99,21 @@ extension HomeViewController: TableViewDelegateDataSource {
 extension HomeViewController: HomeViewModelDelegate {
     
     func handleOutput(_ output: HomeViewModelOutput) {
-        DispatchQueue.main.async {
-            switch output {
-            case .questions(let array):
-                self.questionList = array
-            case .error(let networkError):
-                print(networkError.rawValue)
+            DispatchQueue.main.async {
+                switch output {
+                case .questions(let array):
+                    self.questionList = array
+                case .error(let networkError):
+                    print(networkError.rawValue)
+                case .setLoading(let isLoading):
+                    if isLoading {
+                        self.activityIndicator.startAnimating()
+                    }else {
+                        
+                        self.activityIndicator.stopAnimating()
+                    }
+                }
+                self.tableView.reloadData()
             }
-            self.tableView.reloadData()
-        }
     }
 }
