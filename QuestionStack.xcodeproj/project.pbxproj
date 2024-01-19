@@ -19,9 +19,11 @@
 		5FE8EAD42B585E6A00B78B48 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAD32B585E6A00B78B48 /* NetworkManager.swift */; };
 		5FE8EAD62B585E8800B78B48 /* APIEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAD52B585E8800B78B48 /* APIEndPoint.swift */; };
 		5FE8EAD82B59062A00B78B48 /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAD72B59062A00B78B48 /* QuestionModel.swift */; };
-		5FE8EADB2B59134400B78B48 /* QuestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EADA2B59134400B78B48 /* QuestionService.swift */; };
 		5FE8EADD2B591ECA00B78B48 /* QuestionAnswerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EADC2B591ECA00B78B48 /* QuestionAnswerModel.swift */; };
 		5FE8EADF2B59234900B78B48 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */; };
+		5FE8EAE62B5A33A200B78B48 /* HomeViewModelContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAE52B5A33A200B78B48 /* HomeViewModelContracts.swift */; };
+		5FE8EAE82B5A61B500B78B48 /* AppTypealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAE72B5A61B500B78B48 /* AppTypealias.swift */; };
+		5FE8EAEA2B5A648700B78B48 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAE92B5A648700B78B48 /* HomeTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,9 +59,11 @@
 		5FE8EAD32B585E6A00B78B48 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		5FE8EAD52B585E8800B78B48 /* APIEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoint.swift; sourceTree = "<group>"; };
 		5FE8EAD72B59062A00B78B48 /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
-		5FE8EADA2B59134400B78B48 /* QuestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionService.swift; sourceTree = "<group>"; };
 		5FE8EADC2B591ECA00B78B48 /* QuestionAnswerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionAnswerModel.swift; sourceTree = "<group>"; };
 		5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		5FE8EAE52B5A33A200B78B48 /* HomeViewModelContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelContracts.swift; sourceTree = "<group>"; };
+		5FE8EAE72B5A61B500B78B48 /* AppTypealias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTypealias.swift; sourceTree = "<group>"; };
+		5FE8EAE92B5A648700B78B48 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +115,6 @@
 		5FE8EA932B584E5800B78B48 /* QuestionStack */ = {
 			isa = PBXGroup;
 			children = (
-				5FE8EAD92B59131700B78B48 /* Service */,
 				5FE8EACB2B584F0000B78B48 /* Storage */,
 				5FE8EAC82B584EDC00B78B48 /* Networking */,
 				5FE8EAC72B584ED500B78B48 /* Model */,
@@ -121,7 +124,6 @@
 				5FE8EACA2B584EF500B78B48 /* Coordinator */,
 				5FE8EAC42B584EB100B78B48 /* Support */,
 				5FE8EAC92B584EEB00B78B48 /* Utils */,
-				5FE8EAA22B584E5900B78B48 /* Info.plist */,
 			);
 			path = QuestionStack;
 			sourceTree = "<group>";
@@ -150,6 +152,7 @@
 				5FE8EA962B584E5800B78B48 /* SceneDelegate.swift */,
 				5FE8EA9F2B584E5900B78B48 /* LaunchScreen.storyboard */,
 				5FE8EA9D2B584E5900B78B48 /* Assets.xcassets */,
+				5FE8EAA22B584E5900B78B48 /* Info.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 		5FE8EAC92B584EEB00B78B48 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5FE8EAE72B5A61B500B78B48 /* AppTypealias.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -210,26 +214,44 @@
 		5FE8EACC2B584FAE00B78B48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				5FE8EACD2B584FC000B78B48 /* Home */,
+				5FE8EACD2B584FC000B78B48 /* HomeVC */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		5FE8EACD2B584FC000B78B48 /* Home */ = {
+		5FE8EACD2B584FC000B78B48 /* HomeVC */ = {
+			isa = PBXGroup;
+			children = (
+				5FE8EAE42B5A330D00B78B48 /* Cell */,
+				5FE8EAE32B5A330300B78B48 /* Views */,
+				5FE8EAE22B5A32F900B78B48 /* HomeViewModel */,
+			);
+			path = HomeVC;
+			sourceTree = "<group>";
+		};
+		5FE8EAE22B5A32F900B78B48 /* HomeViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5FE8EAE52B5A33A200B78B48 /* HomeViewModelContracts.swift */,
+				5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */,
+			);
+			path = HomeViewModel;
+			sourceTree = "<group>";
+		};
+		5FE8EAE32B5A330300B78B48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				5FE8EACE2B584FE700B78B48 /* HomeViewController.swift */,
-				5FE8EADE2B59234900B78B48 /* HomeViewModel.swift */,
 			);
-			path = Home;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		5FE8EAD92B59131700B78B48 /* Service */ = {
+		5FE8EAE42B5A330D00B78B48 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				5FE8EADA2B59134400B78B48 /* QuestionService.swift */,
+				5FE8EAE92B5A648700B78B48 /* HomeTableViewCell.swift */,
 			);
-			path = Service;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,8 +394,10 @@
 				5FE8EADF2B59234900B78B48 /* HomeViewModel.swift in Sources */,
 				5FE8EAD62B585E8800B78B48 /* APIEndPoint.swift in Sources */,
 				5FE8EA952B584E5800B78B48 /* AppDelegate.swift in Sources */,
-				5FE8EADB2B59134400B78B48 /* QuestionService.swift in Sources */,
+				5FE8EAE82B5A61B500B78B48 /* AppTypealias.swift in Sources */,
+				5FE8EAEA2B5A648700B78B48 /* HomeTableViewCell.swift in Sources */,
 				5FE8EAD82B59062A00B78B48 /* QuestionModel.swift in Sources */,
+				5FE8EAE62B5A33A200B78B48 /* HomeViewModelContracts.swift in Sources */,
 				5FE8EADD2B591ECA00B78B48 /* QuestionAnswerModel.swift in Sources */,
 				5FE8EA972B584E5800B78B48 /* SceneDelegate.swift in Sources */,
 				5FE8EACF2B584FE700B78B48 /* HomeViewController.swift in Sources */,
@@ -552,7 +576,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UKXQYP47Y9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = QuestionStack/Info.plist;
+				INFOPLIST_FILE = QuestionStack/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -579,7 +603,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UKXQYP47Y9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = QuestionStack/Info.plist;
+				INFOPLIST_FILE = QuestionStack/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
