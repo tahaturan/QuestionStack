@@ -24,6 +24,7 @@
 		5FE8EAE62B5A33A200B78B48 /* HomeViewModelContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAE52B5A33A200B78B48 /* HomeViewModelContracts.swift */; };
 		5FE8EAE82B5A61B500B78B48 /* AppTypealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAE72B5A61B500B78B48 /* AppTypealias.swift */; };
 		5FE8EAEA2B5A648700B78B48 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EAE92B5A648700B78B48 /* HomeTableViewCell.swift */; };
+		5FE8EAED2B5A98E800B78B48 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5FE8EAEC2B5A98E800B78B48 /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE8EAED2B5A98E800B78B48 /* SDWebImage in Frameworks */,
 				5FE8EAD22B58504A00B78B48 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +274,7 @@
 			name = QuestionStack;
 			packageProductDependencies = (
 				5FE8EAD12B58504A00B78B48 /* SnapKit */,
+				5FE8EAEC2B5A98E800B78B48 /* SDWebImage */,
 			);
 			productName = QuestionStack;
 			productReference = 5FE8EA912B584E5800B78B48 /* QuestionStack.app */;
@@ -347,6 +350,7 @@
 			mainGroup = 5FE8EA882B584E5800B78B48;
 			packageReferences = (
 				5FE8EAD02B58504A00B78B48 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				5FE8EAEB2B5A98E800B78B48 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 5FE8EA922B584E5800B78B48 /* Products */;
 			projectDirPath = "";
@@ -747,6 +751,14 @@
 				minimumVersion = 5.7.0;
 			};
 		};
+		5FE8EAEB2B5A98E800B78B48 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.18.10;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -754,6 +766,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5FE8EAD02B58504A00B78B48 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		5FE8EAEC2B5A98E800B78B48 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5FE8EAEB2B5A98E800B78B48 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

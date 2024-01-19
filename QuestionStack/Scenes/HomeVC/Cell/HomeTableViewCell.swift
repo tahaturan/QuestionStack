@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class HomeTableViewCell: UITableViewCell {
     //MARK: - Properties
@@ -69,6 +70,7 @@ class HomeTableViewCell: UITableViewCell {
         titleLabel.text = question.title
         tagLabel.text = tagText
         userNameLabel.text = question.owner.displayName
+         profileImageView.sd_setImage(with: URL(string: question.owner.profileImage!))
     }
 }
 
