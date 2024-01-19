@@ -5,4 +5,7 @@
 //  Created by Taha Turan on 19.01.2024.
 //
 
-import Foundation
+import UIKit
+
+///UITableViewDelegate and UITableViewDataSource
+typealias TableViewDelegateDataSource = UITableViewDelegate & UITableViewDataSource
