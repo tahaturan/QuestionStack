@@ -8,17 +8,16 @@
 import Foundation
 
 protocol NetworkManagerProtocol {
-    func request<T: Codable>(_ endpoint: APIEndPoint, completion: @escaping (Result<T, NetworkError>) -> Void)
+    func fetchData<T: Codable>(_ endpoint: APIEndPoint, completion: @escaping (Result<T, NetworkError>) -> Void)
 }
-
+//network caller
 final class NetworkManager: NetworkManagerProtocol {
     let session = URLSession.shared
-    private let decoder = JSONDecoder()
     static let shared = NetworkManager()
 
     private init() {}
 
-    func request<T: Codable>(_ endpoint: APIEndPoint, completion: @escaping (Result<T, NetworkError>) -> Void) {
+    func fetchData<T: Codable>(_ endpoint: APIEndPoint, completion: @escaping (Result<T, NetworkError>) -> Void) {
         let task = session.dataTask(with: endpoint.request()) { data, response, error in
             guard error == nil else {
                 completion(.failure(.unableToComplateError))
@@ -38,8 +37,8 @@ final class NetworkManager: NetworkManagerProtocol {
             switch response.statusCode {
             case 200 ... 299:
                 do {
-                    let result = try self.decoder.decode(T.self, from: data)
-                    completion(.success(result))
+                    let decoderData = try JSONDecoder().decode(T.self, from: data)
+                    completion(.success(decoderData))
                 } catch {
                     completion(.failure(.decodingError))
                 }

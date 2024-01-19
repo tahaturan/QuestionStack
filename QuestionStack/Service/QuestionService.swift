@@ -18,11 +18,11 @@ final class QuestionService: QuestionServiceDelegate {
     private init() {}
     
     func getQuestions(page: Int, completion: @escaping (Result<QuestionsModel, NetworkError>) -> Void) {
-        NetworkManager.shared.request(.getQuestions(page: page), completion: completion)
+        NetworkManager.shared.fetchData(.getQuestions(page: page), completion: completion)
     }
     
     func getQuestionAnswers(questionID: Int, comletion: @escaping (Result<QuestionsAnswerModel, NetworkError>) -> Void) {
-        NetworkManager.shared.request(.getQestionAnswers(questionId: questionID), completion: comletion)
+        NetworkManager.shared.fetchData(.getQestionAnswers(questionId: questionID), completion: comletion)
     }
     
 }
