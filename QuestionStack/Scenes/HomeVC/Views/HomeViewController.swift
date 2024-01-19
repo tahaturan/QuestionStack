@@ -10,13 +10,15 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     //MARK: - Properties
-    private lazy var homeViewModel: HomeViewModel = HomeViewModel()
+    private var homeViewModel: HomeViewModel = HomeViewModel()
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupLayout()
         homeViewModel.loadData()
+        setupLayout()
+        
+        
     }
 }
 //MARK: - Helper
@@ -25,6 +27,8 @@ extension HomeViewController {
         view.backgroundColor = .red
     }
     private func setupLayout(){
-       
+        homeViewModel.questionList.bind { list in
+            //TODO: bind
+        }
     }
 }

@@ -13,10 +13,6 @@ protocol NetworkManagerProtocol {
 //network caller
 final class NetworkManager: NetworkManagerProtocol {
     let session = URLSession.shared
-    static let shared = NetworkManager()
-
-    private init() {}
-
     func fetchData<T: Codable>(_ endpoint: APIEndPoint, completion: @escaping (Result<T, NetworkError>) -> Void) {
         let task = session.dataTask(with: endpoint.request()) { data, response, error in
             guard error == nil else {
