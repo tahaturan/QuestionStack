@@ -24,8 +24,8 @@ final class HomeViewModel: HomeViewModelContracts {
                 switch result {
                 case .success(let questionModel):
                     self.delegate?.handleOutput(.questions(questionModel.items))
-                case .failure(_):
-                    self.delegate?.handleOutput(.error(.invalidData))
+                case .failure(let error):
+                    self.delegate?.handleOutput(.error(error))
                 }
             }
         

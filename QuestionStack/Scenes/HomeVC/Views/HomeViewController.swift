@@ -10,7 +10,7 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     //MARK: - Properties
-    private lazy var homeViewModel: HomeViewModel = HomeViewModel(service: NetworkManager())
+    var homeViewModel: HomeViewModel?
     private var questionList: [QuestionItem] = []
     private var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
@@ -31,8 +31,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        homeViewModel.delegate = self
-        homeViewModel.load()
+        homeViewModel?.delegate = self
+        homeViewModel?.load()
     }
 }
 //MARK: - Helper
@@ -95,7 +95,7 @@ extension HomeViewController: TableViewDelegateDataSource {
     
 }
 
-//MARK: - HomeViewControllerDelagate
+//MARK: - HomeViewModelDelagate
 extension HomeViewController: HomeViewModelDelegate {
     
     func handleOutput(_ output: HomeViewModelOutput) {
