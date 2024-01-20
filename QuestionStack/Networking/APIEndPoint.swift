@@ -64,7 +64,6 @@ extension APIEndPoint: APIEndPointDelegate {
             fatalError("URL Compinents is not")
         }
         guard let url = apiURL.url else { fatalError("URL is Not Created") }
-        
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         

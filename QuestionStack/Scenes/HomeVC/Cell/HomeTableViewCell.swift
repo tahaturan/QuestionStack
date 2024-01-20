@@ -14,9 +14,14 @@ class HomeTableViewCell: UITableViewCell {
     static let identifier: String = "homeViewCell"
     
     //MARK: - UIComponents
+    private let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
     private var profileImageView: UIImageView = {
       let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = .dummy
         return imageView
     }()
@@ -34,21 +39,25 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     private func setupUI() {
-        contentView.addSubview(profileImageView)
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(userNameLabel)
-        contentView.addSubview(tagLabel)
+        contentView.addSubview(containerView)
+        containerView.addSubview(profileImageView)
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(userNameLabel)
+        containerView.addSubview(tagLabel)
+        
+        containerView.snp.makeConstraints { make in
+            make.left.right.top.bottom.equalToSuperview().inset(10)
+        }
         
         profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top)
-            make.left.equalTo(contentView.snp.left)
-            make.bottom.equalTo(contentView.snp.bottom)
-            make.width.equalTo(100)
+            make.top.equalTo(containerView.snp.top)
+            make.left.equalTo(containerView.snp.left)
+            make.width.height.equalTo(self.screenWidth * 0.4)
         }
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top)
+            make.top.equalTo(containerView.snp.top)
             make.left.equalTo(profileImageView.snp.right).offset(10)
-            make.right.equalTo(contentView).offset(-10)
+            make.right.equalTo(containerView).offset(-10)
         }
         userNameLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
