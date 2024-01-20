@@ -93,6 +93,16 @@ extension HomeViewController: TableViewDelegateDataSource {
         return screenHeight * 0.18
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        let scrollViewHeight = scrollView.frame.height
+        let contentHeight = scrollView.contentSize.height
+        
+        if position > (contentHeight - 100 - scrollViewHeight) {
+            homeViewModel?.load()
+        }
+    }
+    
 }
 
 //MARK: - HomeViewModelDelagate
@@ -101,8 +111,8 @@ extension HomeViewController: HomeViewModelDelegate {
     func handleOutput(_ output: HomeViewModelOutput) {
             DispatchQueue.main.async {
                 switch output {
-                case .questions(let array):
-                    self.questionList = array
+                case .questions(let questions):
+                    self.questionList.append(contentsOf: questions)
                 case .error(let networkError):
                     print(networkError.rawValue)
                 case .setLoading(let isLoading):

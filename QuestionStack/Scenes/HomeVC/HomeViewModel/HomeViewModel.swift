@@ -12,24 +12,30 @@ import Foundation
 final class HomeViewModel: HomeViewModelContracts {
     var delegate: HomeViewModelDelegate?
     var service: NetworkManagerProtocol
+    private var page = 1
+    var isPaginating = false
     
     init(service: NetworkManagerProtocol) {
         self.service = service
     }
     
     func load() {
+        guard !isPaginating else {return}
+        isPaginating = true
         setLoading(true)
-            self.service.fetchData(.getQuestions(page: 1)) { (result: Result<QuestionsModel, NetworkError>) in
-                self.setLoading(false)
+            self.service.fetchData(.getQuestions(page: page)) {[weak self] (result: Result<QuestionsModel, NetworkError>) in
+                self?.setLoading(false)
+                self?.isPaginating = false
                 switch result {
                 case .success(let questionModel):
-                    self.delegate?.handleOutput(.questions(questionModel.items))
+                    self?.page += 1
+                    self?.delegate?.handleOutput(.questions(questionModel.items))
                 case .failure(let error):
-                    self.delegate?.handleOutput(.error(error))
+                    self?.delegate?.handleOutput(.error(error))
                 }
             }
-        
     }
+    
     func setLoading(_ isLoading: Bool) {
         self.delegate?.handleOutput(.setLoading(isLoading))
     }
