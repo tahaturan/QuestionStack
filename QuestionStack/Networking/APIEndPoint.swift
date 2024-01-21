@@ -40,7 +40,7 @@ extension APIEndPoint: APIEndPointDelegate {
     var path: String {
         switch self {
         case .getQuestions(let page):
-            return "/questions?site=stackoverflow&page=\(page)&pagesize=15&order=desc&sort=activity"
+            return "/questions?site=stackoverflow&page=\(page)&pagesize=10&order=desc&sort=activity"
         case .getQestionAnswers(let questionId):
             return "/questions/\(questionId)/answers?site=stackoverflow"
         }

@@ -23,7 +23,8 @@ final class HomeViewModel: HomeViewModelContracts {
         guard !isPaginating else {return}
         isPaginating = true
         setLoading(true)
-            self.service.fetchData(.getQuestions(page: page)) {[weak self] (result: Result<QuestionsModel, NetworkError>) in
+        DispatchQueue.main.async {
+            self.service.fetchData(.getQuestions(page: self.page)) {[weak self] (result: Result<QuestionsModel, NetworkError>) in
                 self?.setLoading(false)
                 self?.isPaginating = false
                 switch result {
@@ -34,6 +35,7 @@ final class HomeViewModel: HomeViewModelContracts {
                     self?.delegate?.handleOutput(.error(error))
                 }
             }
+        }
     }
     
     func setLoading(_ isLoading: Bool) {
