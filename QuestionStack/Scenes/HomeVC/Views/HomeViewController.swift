@@ -88,11 +88,12 @@ extension HomeViewController: TableViewDelegateDataSource {
         let scrollViewHeight = scrollView.frame.height
         let contentHeight = scrollView.contentSize.height
         
-        if position > (contentHeight - 100 - scrollViewHeight) {
-            homeViewModel?.getQuestions()
+        if  searchVC.searchBar.text!.isEmpty {
+            if position > (contentHeight - 100 - scrollViewHeight) {
+                homeViewModel?.getQuestions()
+            }
         }
     }
-    
 }
 
 //MARK: - HomeViewModelDelagate
@@ -141,8 +142,10 @@ extension HomeViewController: UISearchBarDelegate {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
         searchBar.resignFirstResponder()
         self.homeViewModel?.getSearchQuestion(query: searchText)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        homeViewModel?.getQuestions()
     }
 }
