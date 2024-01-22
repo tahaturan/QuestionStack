@@ -30,11 +30,13 @@ protocol APIEndPointDelegate {
 enum APIEndPoint {
     case getQuestions(page: Int)
     case getQestionAnswers(questionId: Int)
+    case searchQuestions(searchText: String)
 }
 
 extension APIEndPoint: APIEndPointDelegate {
     var baseURL: String {
         return "https://api.stackexchange.com/2.3"
+        
     }
     
     var path: String {
@@ -43,7 +45,10 @@ extension APIEndPoint: APIEndPointDelegate {
             return "/questions?site=stackoverflow&page=\(page)&pagesize=10&order=desc&sort=activity"
         case .getQestionAnswers(let questionId):
             return "/questions/\(questionId)/answers?site=stackoverflow"
+        case .searchQuestions(searchText: let searchText):
+            return "/search?order=desc&sort=activity&intitle=\(searchText)&site=stackoverflow"
         }
+    
     }
     
     var method: HTTPMethod {
@@ -51,6 +56,8 @@ extension APIEndPoint: APIEndPointDelegate {
         case .getQuestions(_):
             return .get
         case .getQestionAnswers(_):
+            return .get
+        case .searchQuestions(_):
             return .get
         }
     }

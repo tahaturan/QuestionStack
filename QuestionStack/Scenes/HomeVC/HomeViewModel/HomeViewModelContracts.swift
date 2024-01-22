@@ -9,13 +9,15 @@ import Foundation
 
 protocol HomeViewModelContracts {
     var delegate: HomeViewModelDelegate? { get set }
-    func load()
+    func getQuestions()
+    func getSearchQuestion(query: String?)
     func setLoading(_ isLoading: Bool)
 }
 
 enum HomeViewModelOutput {
     case questions([QuestionItem])
     case error(NetworkError)
+    case searchQuestions([QuestionItem])
     case setLoading(Bool)
 }
 

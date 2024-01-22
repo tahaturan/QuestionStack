@@ -12,27 +12,22 @@ class HomeViewController: UIViewController {
     //MARK: - Properties
     var homeViewModel: HomeViewModel?
     private var questionList: [QuestionItem] = []
+    private var filteredList: [QuestionItem] = []
     private var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
-        
         indicator.hidesWhenStopped = true
         indicator.color = .black
-        
         return indicator
     }()
     //MARK: - UICompanents
-    let searchBarView: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
-        return searchBar
-    }()
     private var tableView: UITableView = UITableView()
+    private let searchVC: UISearchController = UISearchController(searchResultsController: nil)
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         homeViewModel?.delegate = self
-        homeViewModel?.load()
+        homeViewModel?.getQuestions()
     }
 }
 //MARK: - Helper
@@ -40,6 +35,7 @@ extension HomeViewController {
     private func setupUI(){
         view.backgroundColor = .white
         title = "QuestionStack"
+        navigationController?.navigationBar.prefersLargeTitles = true
         makeSearcBarView()
         makeTableView()
         makeActivityIndicator()
@@ -54,21 +50,15 @@ extension HomeViewController{
         tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: HomeTableViewCell.identifier)
         tableView.separatorStyle = .none
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchBarView.snp.bottom).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide)
             make.left.right.equalToSuperview().inset(10)
             make.bottom.equalToSuperview()
         }
     }
     private func makeSearcBarView() {
-        view.addSubview(searchBarView)
-        searchBarView.returnKeyType = .search
-        searchBarView.searchBarStyle = .minimal
-        searchBarView.showsCancelButton = true
-        searchBarView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.equalToSuperview().inset(10)
-            make.height.equalTo(50)
-        }
+        navigationItem.searchController = searchVC
+        searchVC.searchBar.delegate = self
+        
     }
     private func makeActivityIndicator() {
         view.addSubview(activityIndicator)
@@ -80,12 +70,12 @@ extension HomeViewController{
 //MARK: - UItableViewDelagateDataSource
 extension HomeViewController: TableViewDelegateDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return questionList.count
+        return filteredList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell
-        let question = questionList[indexPath.row]
+        let question = filteredList[indexPath.row]
         cell.configureCell(question: question)
         return cell
     }
@@ -99,7 +89,7 @@ extension HomeViewController: TableViewDelegateDataSource {
         let contentHeight = scrollView.contentSize.height
         
         if position > (contentHeight - 100 - scrollViewHeight) {
-            homeViewModel?.load()
+            homeViewModel?.getQuestions()
         }
     }
     
@@ -109,21 +99,50 @@ extension HomeViewController: TableViewDelegateDataSource {
 extension HomeViewController: HomeViewModelDelegate {
     
     func handleOutput(_ output: HomeViewModelOutput) {
-            DispatchQueue.main.async {
                 switch output {
                 case .questions(let questions):
                     self.questionList.append(contentsOf: questions)
+                    self.filteredList = self.questionList
                 case .error(let networkError):
                     print(networkError.rawValue)
                 case .setLoading(let isLoading):
-                    if isLoading {
-                        self.activityIndicator.startAnimating()
-                    }else {
-                        
-                        self.activityIndicator.stopAnimating()
+                    DispatchQueue.main.async {
+                        if isLoading {
+                            self.activityIndicator.startAnimating()
+                        }else {
+                            
+                            self.activityIndicator.stopAnimating()
+                        }
                     }
+                case .searchQuestions(let questions):
+                    self.filteredList = questions
                 }
-                self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+                
+    }
+}
+//MARK: - UISearchBarDelegate
+extension HomeViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        DispatchQueue.main.async {
+            if searchText.isEmpty {
+                self.filteredList = self.questionList
+            } else {
+                self.filteredList = self.questionList.filter({ question in
+                    question.title.lowercased().contains(searchText.lowercased())
+                })
             }
+            self.tableView.reloadData()
+        }
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text, !searchText.isEmpty else { return }
+        searchBar.resignFirstResponder()
+        self.homeViewModel?.getSearchQuestion(query: searchText)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
