@@ -109,9 +109,13 @@ extension HomeViewController: TableViewDelegateDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let questionItem = filteredList[indexPath.row]
-        let detailVC = DetailViewControllerBuilder.makeDetailViewController(questionID: questionItem.questionID, questionItem: questionItem)
-        navigationController?.pushViewController(detailVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if Connectivity.shared.isConnected {
+            let questionItem = filteredList[indexPath.row]
+            let detailVC = DetailViewControllerBuilder.makeDetailViewController(questionID: questionItem.questionID, questionItem: questionItem)
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
 }
 

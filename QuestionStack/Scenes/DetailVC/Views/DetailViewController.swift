@@ -147,6 +147,9 @@ extension DetailViewController: TableViewDelegateDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return screenHeight * 0.15
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 //MARK: - DetailViewModelDelegate
