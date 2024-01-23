@@ -17,9 +17,8 @@ struct QuestionItem: Codable {
     let tags: [String]
     let owner: Owner
     let isAnswered: Bool
-    let viewCount, answerCount, score, lastActivityDate: Int
+    let viewCount, answerCount, score: Int
     let creationDate, questionID: Int
-    let link: String
     let title: String
 
     enum CodingKeys: String, CodingKey {
@@ -28,10 +27,9 @@ struct QuestionItem: Codable {
         case viewCount = "view_count"
         case answerCount = "answer_count"
         case score
-        case lastActivityDate = "last_activity_date"
         case creationDate = "creation_date"
         case questionID = "question_id"
-        case link, title
+        case title
     }
 }
 
@@ -50,3 +48,48 @@ struct Owner: Codable {
     }
 }
 
+
+extension QuestionItem {
+    func toRealmQuestionItem(completion: @escaping (RealmQuestionItem?) -> Void) {
+        let realmQuestion = RealmQuestionItem()
+        realmQuestion.questionID = self.questionID
+        realmQuestion.viewCount = self.viewCount
+        realmQuestion.answerCount = self.answerCount
+        realmQuestion.score = self.score
+        realmQuestion.creationDate = self.creationDate
+        realmQuestion.title = self.title
+        realmQuestion.tags.append(objectsIn: self.tags)
+        
+        if let profileImageUrl = self.owner.profileImage {
+            downloadImageData(urlString: profileImageUrl) { imageData in
+                DispatchQueue.main.async {
+                    let realmOwner = RealmOwner()
+                    realmOwner.profileImage = imageData
+                    realmOwner.accountID = self.owner.accountID
+                    realmOwner.userID = self.owner.userID
+                    realmOwner.displayName = self.owner.displayName
+                    
+                    realmQuestion.owner = realmOwner
+                    completion(realmQuestion)
+                }
+            }
+        } else {
+            completion(realmQuestion)
+        }
+    }
+    
+    private func downloadImageData(urlString: String, completion: @escaping (Data?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+            completion(data)
+        }
+        task.resume()
+    }
+}

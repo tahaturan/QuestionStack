@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     var homeViewModel: HomeViewModel?
     private var questionList: [QuestionItem] = []
     private var filteredList: [QuestionItem] = []
+    private var realmQuestionList: [RealmQuestionItem] = []
     private var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
@@ -27,7 +28,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         homeViewModel?.delegate = self
-        homeViewModel?.getQuestions()
+        homeViewModel?.loadData()
     }
 }
 //MARK: - Helper
@@ -58,7 +59,11 @@ extension HomeViewController{
     private func makeSearcBarView() {
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
-        
+        if Connectivity.shared.isConnected {
+            searchVC.searchBar.isEnabled = true
+        } else {
+            searchVC.searchBar.isEnabled = false
+        }
     }
     private func makeActivityIndicator() {
         view.addSubview(activityIndicator)
@@ -70,13 +75,18 @@ extension HomeViewController{
 //MARK: - UItableViewDelagateDataSource
 extension HomeViewController: TableViewDelegateDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredList.count
+        return Connectivity.shared.isConnected ? filteredList.count : realmQuestionList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell
-        let question = filteredList[indexPath.row]
-        cell.configureCell(question: question)
+        if Connectivity.shared.isConnected {
+            let question = filteredList[indexPath.row]
+            cell.configureCell(question: question)
+        } else {
+            let question = realmQuestionList[indexPath.row]
+            cell.configureCellForRealm(question: question)
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -88,9 +98,11 @@ extension HomeViewController: TableViewDelegateDataSource {
         let scrollViewHeight = scrollView.frame.height
         let contentHeight = scrollView.contentSize.height
         
-        if  searchVC.searchBar.text!.isEmpty {
-            if position > (contentHeight - 100 - scrollViewHeight) {
-                homeViewModel?.getQuestions()
+        if Connectivity.shared.isConnected {
+            if  searchVC.searchBar.text!.isEmpty {
+                if position > (contentHeight - 100 - scrollViewHeight) {
+                    homeViewModel?.getQuestions()
+                }
             }
         }
     }
@@ -117,6 +129,8 @@ extension HomeViewController: HomeViewModelDelegate {
                     }
                 case .searchQuestions(let questions):
                     self.filteredList = questions
+                case .questionRealm(let questionItemsRealm):
+                    self.realmQuestionList = questionItemsRealm
                 }
         DispatchQueue.main.async {
             self.tableView.reloadData()

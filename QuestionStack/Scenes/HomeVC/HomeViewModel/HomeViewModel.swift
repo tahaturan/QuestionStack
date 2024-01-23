@@ -15,8 +15,19 @@ final class HomeViewModel: HomeViewModelContracts {
     private var page = 1
     var isPaginating = false
     
+    //Realm Service
+    private var realmService: RealmService = RealmService()
+    
     init(service: NetworkManagerProtocol) {
         self.service = service
+    }
+    
+    func loadData() {
+        if Connectivity.shared.isConnected {
+            getQuestions()
+        } else {
+            getQuestionsRealm()
+        }
     }
     
     func getQuestions() {
@@ -29,6 +40,7 @@ final class HomeViewModel: HomeViewModelContracts {
                 switch result {
                 case .success(let questionModel):
                     self?.page += 1
+                    self?.saveQuestionsToRealm(items: questionModel.items)
                     self?.delegate?.handleOutput(.questions(questionModel.items))
                 case .failure(let error):
                     self?.delegate?.handleOutput(.error(error))
@@ -51,6 +63,29 @@ final class HomeViewModel: HomeViewModelContracts {
     
     func setLoading(_ isLoading: Bool) {
         self.delegate?.handleOutput(.setLoading(isLoading))
+    }
+    func getQuestionsRealm() {
+        delegate?.handleOutput(.questionRealm(realmService.loadQuestions()))
+    }
+    //Save to Realm
+    private func saveQuestionsToRealm(items: [QuestionItem]) {
+        let group = DispatchGroup()
+        
+        var realmQuestions: [RealmQuestionItem] = []
+        
+        for item in items {
+            group.enter()
+            item.toRealmQuestionItem { realmQuestion in
+                if let realmQuestion = realmQuestion {
+                    realmQuestions.append(realmQuestion)
+                }
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            self.realmService.saveQuestion(questionList: realmQuestions)
+        }
     }
     
 }

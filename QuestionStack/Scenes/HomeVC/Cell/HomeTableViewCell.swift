@@ -83,6 +83,19 @@ class HomeTableViewCell: UITableViewCell {
              profileImageView.sd_setImage(with: URL(string: userProfileImage))
          }
     }
+    func configureCellForRealm(question: RealmQuestionItem) {
+        var tagText: String = ""
+        let tags = question.tags
+        for tag in tags {
+            tagText += "#\(tag), "
+        }
+        titleLabel.text = question.title
+        tagLabel.text = tagText
+        userNameLabel.text = question.owner?.displayName
+        if let profileImageData = question.owner?.profileImage, let profileImage = UIImage(data: profileImageData) {
+            profileImageView.image = profileImage
+        }
+    }
 }
 
 //MARK: - FactoryMethod
