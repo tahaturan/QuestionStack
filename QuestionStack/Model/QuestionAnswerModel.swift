@@ -10,15 +10,6 @@ import Foundation
 // MARK: - QuestionsAnswer
 struct QuestionsAnswerModel: Codable {
     let items: [AnswerItem]
-    let hasMore: Bool
-    let quotaMax, quotaRemaining: Int
-
-    enum CodingKeys: String, CodingKey {
-        case items
-        case hasMore = "has_more"
-        case quotaMax = "quota_max"
-        case quotaRemaining = "quota_remaining"
-    }
 }
 
 // MARK: - Item

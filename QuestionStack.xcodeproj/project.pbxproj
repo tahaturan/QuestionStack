@@ -10,6 +10,12 @@
 		5F47A1122B5EE10100F13FAC /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1112B5EE10100F13FAC /* RealmService.swift */; };
 		5F47A1142B5F77BB00F13FAC /* RealmQuestionItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1132B5F77BB00F13FAC /* RealmQuestionItemModel.swift */; };
 		5F47A1172B5F969300F13FAC /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1162B5F969300F13FAC /* Connectivity.swift */; };
+		5F47A11C2B5FD8F300F13FAC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A11B2B5FD8F200F13FAC /* DetailViewController.swift */; };
+		5F47A11E2B5FD90500F13FAC /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A11D2B5FD90500F13FAC /* DetailViewModel.swift */; };
+		5F47A1202B5FD92300F13FAC /* DetailViewModelContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A11F2B5FD92300F13FAC /* DetailViewModelContracts.swift */; };
+		5F47A1262B5FE05200F13FAC /* DetailViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1252B5FE05200F13FAC /* DetailViewControllerBuilder.swift */; };
+		5F47A1282B5FEA4A00F13FAC /* INT+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1272B5FEA4A00F13FAC /* INT+Extension.swift */; };
+		5F47A12B2B6026E700F13FAC /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A12A2B6026E700F13FAC /* DetailTableViewCell.swift */; };
 		5FE8EA952B584E5800B78B48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EA942B584E5800B78B48 /* AppDelegate.swift */; };
 		5FE8EA972B584E5800B78B48 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8EA962B584E5800B78B48 /* SceneDelegate.swift */; };
 		5FE8EA9E2B584E5900B78B48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE8EA9D2B584E5900B78B48 /* Assets.xcassets */; };
@@ -56,6 +62,12 @@
 		5F47A1112B5EE10100F13FAC /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		5F47A1132B5F77BB00F13FAC /* RealmQuestionItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionItemModel.swift; sourceTree = "<group>"; };
 		5F47A1162B5F969300F13FAC /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		5F47A11B2B5FD8F200F13FAC /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5F47A11D2B5FD90500F13FAC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		5F47A11F2B5FD92300F13FAC /* DetailViewModelContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelContracts.swift; sourceTree = "<group>"; };
+		5F47A1252B5FE05200F13FAC /* DetailViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerBuilder.swift; sourceTree = "<group>"; };
+		5F47A1272B5FEA4A00F13FAC /* INT+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "INT+Extension.swift"; sourceTree = "<group>"; };
+		5F47A12A2B6026E700F13FAC /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		5FE8EA912B584E5800B78B48 /* QuestionStack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuestionStack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE8EA942B584E5800B78B48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5FE8EA962B584E5800B78B48 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +128,42 @@
 				5F47A1162B5F969300F13FAC /* Connectivity.swift */,
 			);
 			path = Connectivity;
+			sourceTree = "<group>";
+		};
+		5F47A1182B5FD8CF00F13FAC /* DetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				5F47A1292B6026D400F13FAC /* Cell */,
+				5F47A11A2B5FD8DF00F13FAC /* ViewModel */,
+				5F47A1192B5FD8D900F13FAC /* Views */,
+			);
+			path = DetailVC;
+			sourceTree = "<group>";
+		};
+		5F47A1192B5FD8D900F13FAC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F47A11B2B5FD8F200F13FAC /* DetailViewController.swift */,
+				5F47A1252B5FE05200F13FAC /* DetailViewControllerBuilder.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5F47A11A2B5FD8DF00F13FAC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5F47A11D2B5FD90500F13FAC /* DetailViewModel.swift */,
+				5F47A11F2B5FD92300F13FAC /* DetailViewModelContracts.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5F47A1292B6026D400F13FAC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5F47A12A2B6026E700F13FAC /* DetailTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		5FE8EA882B584E5800B78B48 = {
@@ -236,6 +284,7 @@
 		5FE8EACC2B584FAE00B78B48 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				5F47A1182B5FD8CF00F13FAC /* DetailVC */,
 				5FE8EACD2B584FC000B78B48 /* HomeVC */,
 			);
 			path = Scenes;
@@ -282,6 +331,7 @@
 			children = (
 				5FE8EAEF2B5BA25900B78B48 /* UIViewController+Extension.swift */,
 				5FE8EAF12B5BA33500B78B48 /* UIView+Extension.swift */,
+				5F47A1272B5FEA4A00F13FAC /* INT+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -434,10 +484,16 @@
 				5FE8EAD42B585E6A00B78B48 /* NetworkManager.swift in Sources */,
 				5FE8EADF2B59234900B78B48 /* HomeViewModel.swift in Sources */,
 				5FE8EAD62B585E8800B78B48 /* APIEndPoint.swift in Sources */,
+				5F47A12B2B6026E700F13FAC /* DetailTableViewCell.swift in Sources */,
+				5F47A1262B5FE05200F13FAC /* DetailViewControllerBuilder.swift in Sources */,
+				5F47A11E2B5FD90500F13FAC /* DetailViewModel.swift in Sources */,
 				5FE8EAF42B5C28BE00B78B48 /* HomeViewModelBuilder.swift in Sources */,
 				5FE8EA952B584E5800B78B48 /* AppDelegate.swift in Sources */,
+				5F47A11C2B5FD8F300F13FAC /* DetailViewController.swift in Sources */,
 				5FE8EAE82B5A61B500B78B48 /* AppTypealias.swift in Sources */,
+				5F47A1282B5FEA4A00F13FAC /* INT+Extension.swift in Sources */,
 				5FE8EAEA2B5A648700B78B48 /* HomeTableViewCell.swift in Sources */,
+				5F47A1202B5FD92300F13FAC /* DetailViewModelContracts.swift in Sources */,
 				5FE8EAD82B59062A00B78B48 /* QuestionModel.swift in Sources */,
 				5FE8EAE62B5A33A200B78B48 /* HomeViewModelContracts.swift in Sources */,
 				5FE8EADD2B591ECA00B78B48 /* QuestionAnswerModel.swift in Sources */,

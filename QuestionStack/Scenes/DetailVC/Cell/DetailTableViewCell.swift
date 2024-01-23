@@ -1,17 +1,17 @@
 //
-//  HomeTableViewCell.swift
+//  DetailTableViewCell.swift
 //  QuestionStack
 //
-//  Created by Taha Turan on 19.01.2024.
+//  Created by Taha Turan on 23.01.2024.
 //
 
 import UIKit
 import SnapKit
 import SDWebImage
 
-class HomeTableViewCell: UITableViewCell {
+class DetailTableViewCell: UITableViewCell {
     //MARK: - Properties
-    static let identifier: String = "homeViewCell"
+    static let identifier: String = "detailViewCell"
     
     //MARK: - UIComponents
     private let containerView: UIView = {
@@ -26,9 +26,8 @@ class HomeTableViewCell: UITableViewCell {
         return imageView
     }()
     private lazy var titleLabel: UILabel = createLabel(type: .title)
-    private lazy var userNameLabel: UILabel = createLabel(type: .userName)
-    private lazy var tagLabel: UILabel = createLabel(type: .tag)
-    private lazy var answerCount: UILabel = createLabel(type: .answerCount)
+    private lazy var dateLabel: UILabel = createLabel(type: .date)
+    private lazy var scoreLabel: UILabel = createLabel(type: .score)
     //MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,9 +42,8 @@ class HomeTableViewCell: UITableViewCell {
         contentView.addSubview(containerView)
         containerView.addSubview(profileImageView)
         containerView.addSubview(titleLabel)
-        containerView.addSubview(userNameLabel)
-        containerView.addSubview(tagLabel)
-        containerView.addSubview(answerCount)
+        containerView.addSubview(dateLabel)
+        containerView.addSubview(scoreLabel)
         
         containerView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalToSuperview().inset(10)
@@ -61,58 +59,33 @@ class HomeTableViewCell: UITableViewCell {
             make.left.equalTo(profileImageView.snp.right).offset(10)
             make.right.equalTo(containerView).offset(10)
         }
-        userNameLabel.snp.makeConstraints { make in
+        dateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.equalTo(titleLabel)
         }
-        tagLabel.snp.makeConstraints { make in
-            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
-            make.left.equalTo(titleLabel)
-            make.right.equalToSuperview().offset(-50)
-        }
-        answerCount.snp.makeConstraints { make in
-            make.bottom.equalTo(containerView.snp.bottom).offset(-10)
-            make.right.equalToSuperview().offset(-10)
+        scoreLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(dateLabel.snp.bottom).offset(20)
+            make.left.equalTo(dateLabel)
         }
     }
     
-     func configureCell(question: QuestionItem) {
-        var tagText: String = ""
-        let tags = question.tags
-        for tag in tags {
-            tagText += "#\(tag), "
-        }
-        titleLabel.text = question.title
-        tagLabel.text = tagText
-        userNameLabel.text = question.owner.displayName
-         answerCount.text = "answer: \(question.answerCount)"
-         if let userProfileImage = question.owner.profileImage {
+     func configureCell(answer: AnswerItem) {
+         titleLabel.text = answer.owner.displayName
+         dateLabel.text = answer.creationDate.toDayMonthYearString()
+         scoreLabel.text = "score: \(answer.score)"
+         if let userProfileImage = answer.owner.profileImage {
              profileImageView.sd_setImage(with: URL(string: userProfileImage))
          }
-    }
-    func configureCellForRealm(question: RealmQuestionItem) {
-        var tagText: String = ""
-        let tags = question.tags
-        for tag in tags {
-            tagText += "#\(tag), "
-        }
-        titleLabel.text = question.title
-        tagLabel.text = tagText
-        userNameLabel.text = question.owner?.displayName
-        answerCount.text = "answer: \(question.answerCount)"
-        if let profileImageData = question.owner?.profileImage, let profileImage = UIImage(data: profileImageData) {
-            profileImageView.image = profileImage
-        }
     }
 }
 
 //MARK: - FactoryMethod
-extension HomeTableViewCell {
+extension DetailTableViewCell {
    private enum labelType {
         case title
-        case tag
+        case date
         case userName
-       case answerCount
+       case score
     }
     private func createLabel(type: labelType) -> UILabel {
         let label: UILabel = UILabel()
@@ -120,12 +93,12 @@ extension HomeTableViewCell {
         switch type {
         case .title:
             label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        case .tag:
+        case .date:
             label.font = UIFont.systemFont(ofSize: 12, weight: .light)
             label.textColor = .gray
         case .userName:
             label.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
-        case .answerCount:
+        case .score:
             label.font = UIFont.systemFont(ofSize: 12, weight: .heavy)
         }
         return label

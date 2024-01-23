@@ -14,15 +14,16 @@ class HomeViewController: UIViewController {
     private var questionList: [QuestionItem] = []
     private var filteredList: [QuestionItem] = []
     private var realmQuestionList: [RealmQuestionItem] = []
+
+    //MARK: - UICompanents
+    private var tableView: UITableView = UITableView()
+    private let searchVC: UISearchController = UISearchController(searchResultsController: nil)
     private var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.hidesWhenStopped = true
         indicator.color = .black
         return indicator
     }()
-    //MARK: - UICompanents
-    private var tableView: UITableView = UITableView()
-    private let searchVC: UISearchController = UISearchController(searchResultsController: nil)
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +106,12 @@ extension HomeViewController: TableViewDelegateDataSource {
                 }
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let questionItem = filteredList[indexPath.row]
+        let detailVC = DetailViewControllerBuilder.makeDetailViewController(questionID: questionItem.questionID, questionItem: questionItem)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
