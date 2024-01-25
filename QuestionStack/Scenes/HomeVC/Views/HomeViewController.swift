@@ -113,7 +113,7 @@ extension HomeViewController: TableViewDelegateDataSource {
         
         if Connectivity.shared.isConnected {
             let questionItem = filteredList[indexPath.row]
-            let detailVC = DetailViewControllerBuilder.makeDetailViewController(questionID: questionItem.questionID, questionItem: questionItem)
+            let detailVC = DetailViewControllerBuilder.makeDetailViewController(questionItem: questionItem)
             navigationController?.pushViewController(detailVC, animated: true)
         }
     }

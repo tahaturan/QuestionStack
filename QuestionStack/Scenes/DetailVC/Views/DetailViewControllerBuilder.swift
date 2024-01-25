@@ -9,9 +9,9 @@ import Foundation
 
 final class DetailViewControllerBuilder {
     
-    static func makeDetailViewController(questionID: Int, questionItem: QuestionItem) -> DetailViewController {
+    static func makeDetailViewController(questionItem: QuestionItem) -> DetailViewController {
         let detailVC = DetailViewController()
-        let viewModel: DetailViewModel = DetailViewModel(service: NetworkManager(), questionId: questionID)
+        let viewModel: DetailViewModel = DetailViewModel(service: NetworkManager(), questionId: questionItem.questionID)
         detailVC.detailViewModel = viewModel
         detailVC.questionItem = questionItem
         detailVC.navigationController?.navigationBar.prefersLargeTitles = false
