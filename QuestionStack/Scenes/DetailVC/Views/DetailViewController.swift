@@ -11,6 +11,7 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
 
     var detailViewModel: DetailViewModel?
+    weak var coordinator: DetailViewCoordinator?
     var questionItem: QuestionItem?
     private var answerList: [AnswerItem] = []
 

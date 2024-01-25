@@ -10,16 +10,20 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var coordinator: HomeViewCoordinator?
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         Connectivity.shared.startMonitoring()
 
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: HomeViewControllerBuilder.makeHomeViewController())
-        self.window = window
-        window.makeKeyAndVisible()
+        let navController = UINavigationController()
+        coordinator = HomeViewCoordinator(navigationController: navController)
+        
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = navController
+        coordinator?.start()
+        window?.makeKeyAndVisible()
     }
     
     func sceneWillResignActive(_ scene: UIScene) {

@@ -11,6 +11,7 @@ import SnapKit
 class HomeViewController: UIViewController {
     //MARK: - Properties
     var homeViewModel: HomeViewModel?
+    weak var coordinator: HomeViewCoordinator?
     private var questionList: [QuestionItem] = []
     private var filteredList: [QuestionItem] = []
     private var realmQuestionList: [RealmQuestionItem] = []
@@ -113,8 +114,7 @@ extension HomeViewController: TableViewDelegateDataSource {
         
         if Connectivity.shared.isConnected {
             let questionItem = filteredList[indexPath.row]
-            let detailVC = DetailViewControllerBuilder.makeDetailViewController(questionItem: questionItem)
-            navigationController?.pushViewController(detailVC, animated: true)
+            coordinator?.goToDetail(with: questionItem)
         }
     }
 }
