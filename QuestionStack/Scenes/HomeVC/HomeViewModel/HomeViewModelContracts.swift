@@ -23,6 +23,6 @@ enum HomeViewModelOutput {
     case setLoading(Bool)
 }
 
-protocol HomeViewModelDelegate {
+protocol HomeViewModelDelegate: AnyObject {
     func handleOutput(_ output: HomeViewModelOutput)
 }

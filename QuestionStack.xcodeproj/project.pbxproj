@@ -10,9 +10,10 @@
 		5F171DB32B6235C700CCCBE6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F171DB22B6235C700CCCBE6 /* Coordinator.swift */; };
 		5F171DB62B62378600CCCBE6 /* HomeViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F171DB52B62378600CCCBE6 /* HomeViewCoordinator.swift */; };
 		5F171DB92B623A8000CCCBE6 /* DetailViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F171DB82B623A8000CCCBE6 /* DetailViewCoordinator.swift */; };
+		5F45AD722B66E08D00FADD90 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 5F45AD712B66E08D00FADD90 /* Reachability */; };
 		5F47A1122B5EE10100F13FAC /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1112B5EE10100F13FAC /* RealmService.swift */; };
 		5F47A1142B5F77BB00F13FAC /* RealmQuestionItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1132B5F77BB00F13FAC /* RealmQuestionItemModel.swift */; };
-		5F47A1172B5F969300F13FAC /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1162B5F969300F13FAC /* Connectivity.swift */; };
+		5F47A1172B5F969300F13FAC /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A1162B5F969300F13FAC /* ReachabilityManager.swift */; };
 		5F47A11C2B5FD8F300F13FAC /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A11B2B5FD8F200F13FAC /* DetailViewController.swift */; };
 		5F47A11E2B5FD90500F13FAC /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A11D2B5FD90500F13FAC /* DetailViewModel.swift */; };
 		5F47A1202B5FD92300F13FAC /* DetailViewModelContracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F47A11F2B5FD92300F13FAC /* DetailViewModelContracts.swift */; };
@@ -67,7 +68,7 @@
 		5F171DB82B623A8000CCCBE6 /* DetailViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCoordinator.swift; sourceTree = "<group>"; };
 		5F47A1112B5EE10100F13FAC /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		5F47A1132B5F77BB00F13FAC /* RealmQuestionItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmQuestionItemModel.swift; sourceTree = "<group>"; };
-		5F47A1162B5F969300F13FAC /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
+		5F47A1162B5F969300F13FAC /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		5F47A11B2B5FD8F200F13FAC /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		5F47A11D2B5FD90500F13FAC /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		5F47A11F2B5FD92300F13FAC /* DetailViewModelContracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModelContracts.swift; sourceTree = "<group>"; };
@@ -106,6 +107,7 @@
 			files = (
 				5FFBC8E92B5EDB6000DD8BFF /* RealmSwift in Frameworks */,
 				5FFBC8E72B5EDB6000DD8BFF /* Realm in Frameworks */,
+				5F45AD722B66E08D00FADD90 /* Reachability in Frameworks */,
 				5FFBC8E42B5EDAF700DD8BFF /* SDWebImage in Frameworks */,
 				5FFBC8E12B5EDAE000DD8BFF /* SnapKit in Frameworks */,
 			);
@@ -147,7 +149,7 @@
 		5F47A1152B5F966F00F13FAC /* Connectivity */ = {
 			isa = PBXGroup;
 			children = (
-				5F47A1162B5F969300F13FAC /* Connectivity.swift */,
+				5F47A1162B5F969300F13FAC /* ReachabilityManager.swift */,
 			);
 			path = Connectivity;
 			sourceTree = "<group>";
@@ -382,6 +384,7 @@
 				5FFBC8E32B5EDAF700DD8BFF /* SDWebImage */,
 				5FFBC8E62B5EDB6000DD8BFF /* Realm */,
 				5FFBC8E82B5EDB6000DD8BFF /* RealmSwift */,
+				5F45AD712B66E08D00FADD90 /* Reachability */,
 			);
 			productName = QuestionStack;
 			productReference = 5FE8EA912B584E5800B78B48 /* QuestionStack.app */;
@@ -459,6 +462,7 @@
 				5FFBC8DF2B5EDAE000DD8BFF /* XCRemoteSwiftPackageReference "SnapKit" */,
 				5FFBC8E22B5EDAF700DD8BFF /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				5FFBC8E52B5EDB6000DD8BFF /* XCRemoteSwiftPackageReference "realm-swift" */,
+				5F45AD702B66E08D00FADD90 /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 5FE8EA922B584E5800B78B48 /* Products */;
 			projectDirPath = "";
@@ -504,7 +508,7 @@
 			files = (
 				5F47A1142B5F77BB00F13FAC /* RealmQuestionItemModel.swift in Sources */,
 				5FE8EAF02B5BA25900B78B48 /* UIViewController+Extension.swift in Sources */,
-				5F47A1172B5F969300F13FAC /* Connectivity.swift in Sources */,
+				5F47A1172B5F969300F13FAC /* ReachabilityManager.swift in Sources */,
 				5FE8EAF22B5BA33500B78B48 /* UIView+Extension.swift in Sources */,
 				5FE8EAD42B585E6A00B78B48 /* NetworkManager.swift in Sources */,
 				5F171DB62B62378600CCCBE6 /* HomeViewCoordinator.swift in Sources */,
@@ -866,6 +870,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5F45AD702B66E08D00FADD90 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		5FFBC8DF2B5EDAE000DD8BFF /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -893,6 +905,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5F45AD712B66E08D00FADD90 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F45AD702B66E08D00FADD90 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
 		5FFBC8E02B5EDAE000DD8BFF /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5FFBC8DF2B5EDAE000DD8BFF /* XCRemoteSwiftPackageReference "SnapKit" */;

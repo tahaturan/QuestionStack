@@ -10,25 +10,31 @@ import Foundation
 
 
 final class HomeViewModel: HomeViewModelContracts {
-    var delegate: HomeViewModelDelegate?
+   weak var delegate: HomeViewModelDelegate?
     var service: NetworkManagerProtocol
     private var page = 1
     var isPaginating = false
-    
+     
     //Realm Service
     private var realmService: RealmService = RealmService()
     
     init(service: NetworkManagerProtocol) {
         self.service = service
+        ReachabilityManager.shared.startMonitoring()
     }
-    
+
+    deinit {
+        ReachabilityManager.shared.stopMonitoring()
+    }
     func loadData() {
-        if Connectivity.shared.isConnected {
+       
+        if ReachabilityManager.shared.isNetworkAvaiable {
             getQuestions()
         } else {
             getQuestionsRealm()
         }
     }
+
     
     func getQuestions() {
         guard !isPaginating else {return}
@@ -82,10 +88,9 @@ final class HomeViewModel: HomeViewModelContracts {
                 group.leave()
             }
         }
-        
         group.notify(queue: .main) {
             self.realmService.saveQuestion(questionList: realmQuestions)
         }
     }
-    
 }
+

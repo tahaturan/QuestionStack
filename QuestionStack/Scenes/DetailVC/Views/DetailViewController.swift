@@ -36,8 +36,18 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         detailViewModel?.delagate = self
-        detailViewModel?.getAnswers()
+        ReachabilityManager.shared.delegate = self
+        detailViewModel?.loadData()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        ReachabilityManager.shared.startMonitoring()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        ReachabilityManager.shared.stopMonitoring()
+    }
+    
 }
 
 // MARK: - Helper
@@ -72,7 +82,9 @@ extension DetailViewController {
     private func setupProfileImageView() {
         profileImageView.contentMode = .scaleAspectFit
         view.addSubview(profileImageView)
-        profileImageView.sd_setImage(with: URL(string: (questionItem?.owner.profileImage)!))
+        if let profileImageUrl = questionItem?.owner.profileImage {
+            profileImageView.sd_setImage(with: URL(string: (profileImageUrl)))
+        }
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
@@ -172,6 +184,16 @@ extension DetailViewController: DetailViewModelDelegate {
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
+        }
+    }
+}
+//MARK: - ReachabilityManagerDelegate
+extension DetailViewController: ReachabilityManagerDelegate {
+    func isNetworkReachability(isAvaiable: Bool) {
+        if isAvaiable {
+            detailViewModel?.loadData()
+        } else {
+            self.showAlert(title: "Network!!!", message: "Network is not avaiable")
         }
     }
     

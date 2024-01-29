@@ -19,6 +19,6 @@ enum DetailViewModelOutput {
     case setLoading(Bool)
 }
 
-protocol DetailViewModelDelegate {
+protocol DetailViewModelDelegate: AnyObject {
     func handleOutput(_ output: DetailViewModelOutput)
 }

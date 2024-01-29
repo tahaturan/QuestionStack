@@ -8,15 +8,23 @@
 import Foundation
 
 final class DetailViewModel: DetailViewModelContracts {
-    var delagate: DetailViewModelDelegate?
+   weak var delagate: DetailViewModelDelegate?
     var service: NetworkManagerProtocol
     var questionId: Int
-    
     init(service: NetworkManagerProtocol, questionId: Int) {
         self.service = service
         self.questionId = questionId
+        ReachabilityManager.shared.startMonitoring()
+    }
+    deinit {
+        ReachabilityManager.shared.stopMonitoring()
     }
     
+    func loadData() {
+        if ReachabilityManager.shared.isNetworkAvaiable {
+            getAnswers()
+        }
+    }
     
     func getAnswers() {
         setLoading(true)
