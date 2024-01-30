@@ -34,20 +34,12 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ReachabilityManager.shared.startMonitoring()
         setupUI()
         detailViewModel?.delagate = self
         ReachabilityManager.shared.delegate = self
         detailViewModel?.loadData()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        ReachabilityManager.shared.startMonitoring()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        ReachabilityManager.shared.stopMonitoring()
-    }
+
 }
 
 // MARK: - Helper

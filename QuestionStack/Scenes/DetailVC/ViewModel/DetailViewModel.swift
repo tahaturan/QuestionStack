@@ -14,10 +14,14 @@ final class DetailViewModel: DetailViewModelContracts {
     init(service: NetworkManagerProtocol, questionId: Int) {
         self.service = service
         self.questionId = questionId
-       
+//        ReachabilityManager.shared.startMonitoring()
+//        print("DetailViewModel Init")
+    }
+    deinit {
+        ReachabilityManager.shared.stopMonitoring()
+        print("Tetiklendi DetailViewMoedel")
     }
 
-    
     func loadData() {
         if ReachabilityManager.shared.isNetworkAvaiable {
             getAnswers()

@@ -20,20 +20,24 @@ final class HomeViewModel: HomeViewModelContracts {
     
     init(service: NetworkManagerProtocol) {
         self.service = service
-
+        ReachabilityManager.shared.startMonitoring()
     }
 
 
     func loadData() {
-       
+
         if ReachabilityManager.shared.isNetworkAvaiable {
             getQuestions()
         } else {
             getQuestionsRealm()
         }
     }
-
     
+    deinit {
+        ReachabilityManager.shared.stopMonitoring()
+        print("Tetiklendi HomeViewModel deinit")
+    }
+
     func getQuestions() {
         guard !isPaginating else {return}
         isPaginating = true
