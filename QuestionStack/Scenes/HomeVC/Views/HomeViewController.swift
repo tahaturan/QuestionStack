@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        ReachabilityManager.shared.startMonitoring()
         setupUI()
         homeViewModel?.delegate = self
         ReachabilityManager.shared.delegate = self
@@ -36,7 +37,9 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         ReachabilityManager.shared.startMonitoring()
-        homeViewModel?.loadData()
+        DispatchQueue.main.async {
+            self.homeViewModel?.loadData()
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

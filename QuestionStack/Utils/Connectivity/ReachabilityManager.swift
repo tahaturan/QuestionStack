@@ -21,7 +21,7 @@ class ReachabilityManager {
         return reachability.connection != .unavailable
     }
     
-   private init() {}
+   private init() {setupReachability()}
     
     private func setupReachability() {
         reachability.whenReachable = { [weak self] _ in
@@ -37,7 +37,7 @@ class ReachabilityManager {
     }
     
     func startMonitoring() {
-        setupReachability()
+        
         do {
             try reachability.startNotifier()
         } catch  {

@@ -20,12 +20,10 @@ final class HomeViewModel: HomeViewModelContracts {
     
     init(service: NetworkManagerProtocol) {
         self.service = service
-        ReachabilityManager.shared.startMonitoring()
+
     }
 
-    deinit {
-        ReachabilityManager.shared.stopMonitoring()
-    }
+
     func loadData() {
        
         if ReachabilityManager.shared.isNetworkAvaiable {

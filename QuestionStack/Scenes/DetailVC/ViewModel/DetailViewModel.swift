@@ -14,11 +14,9 @@ final class DetailViewModel: DetailViewModelContracts {
     init(service: NetworkManagerProtocol, questionId: Int) {
         self.service = service
         self.questionId = questionId
-        ReachabilityManager.shared.startMonitoring()
+       
     }
-    deinit {
-        ReachabilityManager.shared.stopMonitoring()
-    }
+
     
     func loadData() {
         if ReachabilityManager.shared.isNetworkAvaiable {

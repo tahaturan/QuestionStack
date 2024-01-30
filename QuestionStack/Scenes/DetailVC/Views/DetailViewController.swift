@@ -34,6 +34,7 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ReachabilityManager.shared.startMonitoring()
         setupUI()
         detailViewModel?.delagate = self
         ReachabilityManager.shared.delegate = self
@@ -47,7 +48,6 @@ class DetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         ReachabilityManager.shared.stopMonitoring()
     }
-    
 }
 
 // MARK: - Helper
