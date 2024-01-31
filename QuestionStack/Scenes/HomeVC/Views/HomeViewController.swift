@@ -11,7 +11,7 @@ import SnapKit
 class HomeViewController: UIViewController {
     //MARK: - Properties
     var homeViewModel: HomeViewModel?
-    weak var coordinator: HomeViewCoordinator?
+    var coordinator: HomeViewCoordinator?
     private var questionList: [QuestionItem] = []
     private var filteredList: [QuestionItem] = []
     private var realmQuestionList: [RealmQuestionItem] = []
@@ -33,10 +33,10 @@ class HomeViewController: UIViewController {
         ReachabilityManager.shared.delegate = self
         homeViewModel?.loadData()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-            self.homeViewModel?.loadData()
-        ReachabilityManager.shared.startMonitoring()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.homeViewModel?.loadData()
+    ReachabilityManager.shared.startMonitoring()
     }
 }
 //MARK: - Helper
@@ -68,6 +68,7 @@ extension HomeViewController{
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
         DispatchQueue.main.async {
+            //TODO: Dispach gerek yok!!
             if ReachabilityManager.shared.isNetworkAvaiable {
                 self.searchVC.searchBar.isEnabled = true
             } else {
@@ -90,7 +91,7 @@ extension HomeViewController: TableViewDelegateDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell //TODO: guvenli sekilde as?
         if ReachabilityManager.shared.isNetworkAvaiable {
             let question = filteredList[indexPath.row]
             cell.configureCell(question: question)
@@ -169,7 +170,7 @@ extension HomeViewController: ReachabilityManagerDelegate {
                 self.showAlert(title: "Network", message: "Network is avaiable")
             }
         }
-        self.homeViewModel?.loadData()
+        self.homeViewModel?.loadData() //TODO: kontrol edilecek farkli senaryolar
     }
 }
 //MARK: - UISearchBarDelegate
@@ -194,7 +195,7 @@ extension HomeViewController: UISearchBarDelegate {
         } else {
             self.showAlert(title: "Fail", message: "Network is not avaiable")
         }
-
+        //GUARD ile yazmaya calis
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil

@@ -14,12 +14,12 @@ final class DetailViewModel: DetailViewModelContracts {
     init(service: NetworkManagerProtocol, questionId: Int) {
         self.service = service
         self.questionId = questionId
-//        ReachabilityManager.shared.startMonitoring()
-//        print("DetailViewModel Init")
+//        ReachabilityManager.shared.startMonitoring() duzenle
+        print("DetailViewModel Init")
     }
     deinit {
         ReachabilityManager.shared.stopMonitoring()
-        print("Tetiklendi DetailViewMoedel")
+        print("Tetiklendi DetailViewMoedel deinit")
     }
 
     func loadData() {
