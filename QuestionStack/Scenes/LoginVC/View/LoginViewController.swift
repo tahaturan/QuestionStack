@@ -17,12 +17,22 @@ class LoginViewController: UIViewController {
     private lazy var passwordTextfield: CustomTextField = CustomTextField(type: .password)
     private lazy var loginButton: UIButton = makeButton(title: "Login")
     private lazy var registerButton: UIButton = makeButton(title: "Register")
-    
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.color = .black
+        return indicator
+    }()
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         loginViewModel?.delegate = self
+        ReachabilityManager.shared.delegate = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ReachabilityManager.shared.startMonitoring()
     }
 }
 //MARK: - Helper
@@ -34,6 +44,7 @@ extension LoginViewController {
         makePassworkdTextfield()
         makeLoginButton()
         makeRegisterButton()
+        makeActivityIndicator()
     }
     
     private func makeEmailTextfield() {
@@ -69,6 +80,12 @@ extension LoginViewController {
             make.left.right.height.equalTo(emailTextfield)
         }
     }
+    private func makeActivityIndicator() {
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
 }
 
 //MARK: - Selector
@@ -85,14 +102,46 @@ extension LoginViewController {
 extension LoginViewController: LoginViewModelDelegate {
     func handleOutput(_ output: LoginViewModelOutput) {
         switch output {
-        case .loginIsSuccess(let bool):
-            self.coordinator?.goHomeVC()
-        case .error(let fireBaseError):
-            self.showAlert(title: "Error!", message: fireBaseError.localizedDescription)
-        case .setLoading(let bool):
-            print("loading")
+        case .loginIsSuccess(let success, let error):
+            if error != nil {
+                self.showAlert(title: "Error", message: error!.localizedDescription)
+            }
+            if let success = success {
+                if success {
+                    self.coordinator?.goHomeVC()
+                }
+            }
+        case .setLoading(let isLoading):
+            DispatchQueue.main.async {
+                if isLoading {
+                    self.activityIndicator.startAnimating()
+                }else {
+                    
+                    self.activityIndicator.stopAnimating()
+                }
+            }
         }
     }
+}
+//MARK: -
+extension LoginViewController: ReachabilityManagerDelegate {
+    func isNetworkReachability(isAvaiable: Bool) {
+        if !isAvaiable {
+            DispatchQueue.main.async {
+                self.loginButton.setTitle("Network is not Avaiable", for: .normal)
+                self.loginButton.isEnabled = false
+                self.loginButton.backgroundColor = .lightGray
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.loginButton.setTitle("LogIn", for: .normal)
+                self.loginButton.isEnabled = true
+                self.loginButton.backgroundColor = .blue.withAlphaComponent(0.5)
+            }
+        }
+    }
+    
+    
 }
 
 //MARK: - Factory Methods

@@ -14,8 +14,7 @@ protocol LoginViewModelContracts {
 }
 
 enum LoginViewModelOutput {
-    case loginIsSuccess(Bool)
-    case error(FireBaseError)
+    case loginIsSuccess(success: Bool? = nil, error: Error? = nil)
     case setLoading(Bool)
 }
 

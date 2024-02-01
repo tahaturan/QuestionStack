@@ -35,8 +35,8 @@ class HomeViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        ReachabilityManager.shared.startMonitoring()
         self.homeViewModel?.loadData()
-    ReachabilityManager.shared.startMonitoring()
     }
 }
 //MARK: - Helper

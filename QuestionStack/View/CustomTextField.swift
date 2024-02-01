@@ -41,6 +41,7 @@ class CustomTextField: UITextField {
             placeholder = "E-mail"
             iconName = "envelope"
             autocapitalizationType = .none
+            keyboardType = .emailAddress
         case .name:
             placeholder = "Name"
             iconName = "person"

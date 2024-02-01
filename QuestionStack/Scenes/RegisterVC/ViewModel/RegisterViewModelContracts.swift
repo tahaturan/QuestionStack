@@ -14,7 +14,7 @@ protocol RegisterViewModelContracts {
 
 
 enum registerViewModelOutput {
-    case loginIsSuccess(success: Bool, error: FireBaseError)
+    case registerIsSuccess(success: Bool? = nil, error: Error? = nil)
     case setLoading(Bool)
 }
 

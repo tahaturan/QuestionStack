@@ -19,6 +19,7 @@ final class RegisterViewCoordinator: Coordinator {
         registerVC.coordinator = self
         navigationController?.pushViewController(registerVC, animated: true)
     }
-    
-    
+    func goBackLoginView() {
+        navigationController?.popViewController(animated: true)
+    }
 }
