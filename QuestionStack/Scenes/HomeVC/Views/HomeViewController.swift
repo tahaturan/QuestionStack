@@ -91,7 +91,8 @@ extension HomeViewController: TableViewDelegateDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as! HomeTableViewCell //TODO: guvenli sekilde as?
+        let cell = tableView.dequeueReusableCell(withIdentifier: HomeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell
+        guard let cell = cell else { fatalError("Cell is not create") }
         if ReachabilityManager.shared.isNetworkAvaiable {
             let question = filteredList[indexPath.row]
             cell.configureCell(question: question)
@@ -170,7 +171,6 @@ extension HomeViewController: ReachabilityManagerDelegate {
                 self.showAlert(title: "Network", message: "Network is avaiable")
             }
         }
-        self.homeViewModel?.loadData() //TODO: kontrol edilecek farkli senaryolar
     }
 }
 //MARK: - UISearchBarDelegate
@@ -195,7 +195,6 @@ extension HomeViewController: UISearchBarDelegate {
         } else {
             self.showAlert(title: "Fail", message: "Network is not avaiable")
         }
-        //GUARD ile yazmaya calis
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
