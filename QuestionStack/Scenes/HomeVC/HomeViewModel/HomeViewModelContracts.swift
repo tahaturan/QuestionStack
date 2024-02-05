@@ -12,14 +12,16 @@ protocol HomeViewModelContracts {
     func getQuestions()
     func getQuestionsRealm()
     func getSearchQuestion(query: String?)
+    func logout()
     func setLoading(_ isLoading: Bool)
 }
 
 enum HomeViewModelOutput {
     case questions([QuestionItem])
-    case error(NetworkError)
+    case error(Error)
     case searchQuestions([QuestionItem])
     case questionRealm([RealmQuestionItem])
+    case logout(Bool)
     case setLoading(Bool)
 }
 

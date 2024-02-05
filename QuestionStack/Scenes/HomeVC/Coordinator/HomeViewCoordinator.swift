@@ -9,6 +9,7 @@ import UIKit
 
 protocol HomeViewCoordinatorProtocol: AnyObject {
     func goToDetail(with questionItem: QuestionItem)
+    func goLogin()
 }
 
 final class HomeViewCoordinator: Coordinator, HomeViewCoordinatorProtocol {
@@ -28,5 +29,11 @@ final class HomeViewCoordinator: Coordinator, HomeViewCoordinatorProtocol {
     func goToDetail(with questionItem: QuestionItem) {
         let detailCoordinator = DetailViewCoordinator(navigationController: navigationController, questionItem: questionItem)
         detailCoordinator.start()
+    }
+    func goLogin() {
+        let loginVC = LoginViewBuilder.makeLoginViewContoller()
+        loginVC.coordinator = LoginViewCoordinator(navigationController: navigationController)
+        
+        navigationController?.setViewControllers([loginVC], animated: true)
     }
 }

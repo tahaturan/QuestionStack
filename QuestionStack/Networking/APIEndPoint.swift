@@ -13,6 +13,21 @@ enum NetworkError: String, Error {
     case invalidData
     case unknownError
     case decodingError
+    
+    var localizedDescription: String {
+        switch self {
+        case .unableToComplateError:
+            return "Unable to Complate Error"
+        case .invalidResponse:
+            return "invalid Response"
+        case .invalidData:
+            return "invalid Data"
+        case .unknownError:
+            return "unknown Error"
+        case .decodingError:
+            return "Decoding Error"
+        }
+    }
 }
 
 enum HTTPMethod: String {

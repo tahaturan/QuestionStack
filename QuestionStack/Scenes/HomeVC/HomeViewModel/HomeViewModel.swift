@@ -94,5 +94,22 @@ final class HomeViewModel: HomeViewModelContracts {
             self.realmService.saveQuestion(questionList: realmQuestions)
         }
     }
+    
+    func logout() {
+        setLoading(true)
+        FirebaseService.shared.signOut {[weak self] result in
+            self?.setLoading(false)
+            switch result {
+            case .success(let success):
+                if success {
+                    self?.delegate?.handleOutput(.logout(true))
+                } else {
+                    self?.delegate?.handleOutput(.error(FireBaseError.customError(message: "SignOut Error")))
+                }
+            case .failure(let error):
+                self?.delegate?.handleOutput(.error(error))
+            }
+        }
+    }
 }
 

@@ -37,4 +37,19 @@ final class FirebaseService {
             }
         }
     }
+    func signOut(comletion:@escaping(Result<Bool, Error>) ->Void) {
+        do {
+            try Auth.auth().signOut()
+            comletion(.success(true))
+        } catch  {
+            comletion(.failure(error))
+        }
+    }
+    func currentUser() -> Bool {
+        if Auth.auth().currentUser != nil {
+            return true
+        } else {
+            return false
+        }
+    }
 }

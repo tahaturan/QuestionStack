@@ -48,6 +48,9 @@ extension HomeViewController {
         makeSearcBarView()
         makeTableView()
         makeActivityIndicator()
+        
+        let logoutButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = logoutButtonItem
     }
 }
 //MARK: - makeComponents
@@ -68,7 +71,7 @@ extension HomeViewController{
         navigationItem.searchController = searchVC
         searchVC.searchBar.delegate = self
         DispatchQueue.main.async {
-            //TODO: Dispach gerek yok!!
+            
             if ReachabilityManager.shared.isNetworkAvaiable {
                 self.searchVC.searchBar.isEnabled = true
             } else {
@@ -82,6 +85,12 @@ extension HomeViewController{
         activityIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+    }
+}
+//MARK: - Selectors
+extension HomeViewController {
+    @objc private func logoutButtonTapped(_ sender: UIButton) {
+        self.homeViewModel?.logout()
     }
 }
 //MARK: - UItableViewDelagateDataSource
@@ -138,8 +147,8 @@ extension HomeViewController: HomeViewModelDelegate {
                 case .questions(let questions):
                     self.questionList.append(contentsOf: questions)
                     self.filteredList = self.questionList
-                case .error(let networkError):
-                    print(networkError.rawValue)
+                case .error(let error):
+                    self.showAlert(title: "Error", message: error.localizedDescription)
                 case .setLoading(let isLoading):
                     DispatchQueue.main.async {
                         if isLoading {
@@ -153,6 +162,13 @@ extension HomeViewController: HomeViewModelDelegate {
                     self.filteredList = questions
                 case .questionRealm(let questionItemsRealm):
                     self.realmQuestionList = questionItemsRealm
+                case .logout(let isLogout):
+                    if isLogout {
+                        //TODO: Coordinator Login
+                        self.showAlert(title: "Sign Out", message: "Are you sure you want to quit?") {
+                            self.coordinator?.goLogin()
+                        }
+                    }
                 }
         DispatchQueue.main.async {
             self.tableView.reloadData()

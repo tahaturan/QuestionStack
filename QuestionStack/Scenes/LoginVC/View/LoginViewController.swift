@@ -10,7 +10,7 @@ import SnapKit
 
 class LoginViewController: UIViewController {
     //MARK: - Properties
-    weak var coordinator: LoginViewCoordinator?
+    var coordinator: LoginViewCoordinator?
     var loginViewModel: LoginViewModel?
     //MARK: - UICompenents
     private lazy var emailTextfield: CustomTextField = CustomTextField(type: .email)
@@ -123,7 +123,7 @@ extension LoginViewController: LoginViewModelDelegate {
         }
     }
 }
-//MARK: -
+//MARK: - ReachabilityManagerDelegate
 extension LoginViewController: ReachabilityManagerDelegate {
     func isNetworkReachability(isAvaiable: Bool) {
         if !isAvaiable {
